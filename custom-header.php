@@ -11,7 +11,7 @@
 <body <?php body_class(); ?>>
 
 <header class="custom-header">
-  <!-- 你自己的页头内容放这里，例如 logo、菜单、自定义 banner 等 -->
+
   <div class="container">
     <!-- 手机端顶部标语 -->
     <div class="mobile-top-banner">
@@ -38,7 +38,7 @@
         <!-- 搜索框 -->
         <div class="mo-search taylor">
             <div class="mo-a">
-                <!-- ✅ 搜索表单开始 -->
+                <!-- 搜索表单开始 -->
                 <form action="/" method="get" class="mo-b billie" onsubmit="return submitSearch(event)">
                 <input
                     type="text"
@@ -48,14 +48,14 @@
                     required
                 />
                 </form>
-                <!-- ✅ 搜索按钮 -->
+                <!-- 搜索按钮 -->
                 <i class="fa-solid fa-magnifying-glass mo-c" onclick="document.querySelector('.mo-b').submit()"></i>
             </div>
         </div>
 
         <script>
             function submitSearch(event) {
-            // 可选逻辑：你可以拦截后自定义搜索逻辑
+            
             return true; // 返回 true 让表单正常提交
             }
         </script>

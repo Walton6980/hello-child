@@ -21,10 +21,7 @@ $gallery_ids = $product->get_gallery_image_ids();
     </a>
 
 
-
-    
     <span class="fg-price"><?php echo convert_price($product->get_price()); ?></span>
-
 
     <div class="shierpx">
         <!-- Min. order:  -->

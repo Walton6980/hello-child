@@ -632,7 +632,7 @@
                 });
             });
 
-            // ✅ 表单式批量 Ajax 加购（统一提交）
+            // 单式批量 Ajax 加购（统一提交）
             if (addToCartBtn) {
                 addToCartBtn.addEventListener('click', function (e) {
                 e.preventDefault();

@@ -472,14 +472,6 @@ add_action('woocommerce_before_main_content', function () {
   });
   
 
-// 获取阶梯价折扣金额
-// function get_discount_amount_by_quantity($quantity) {
-//   if ($quantity >= 500) return 3500;
-//   if ($quantity >= 101) return 2000;
-//   if ($quantity >= 50) return 1000;
-//   return 0;
-// }
-
 function get_discount_rate_by_quantity($quantity) {
   if ($quantity >= 500) return 0.3;  // 30% off
   if ($quantity >= 100) return 0.2;  // 20% off
@@ -488,25 +480,6 @@ function get_discount_rate_by_quantity($quantity) {
 }
 
 
-// 修改购物车中每个商品的价格（基于促销价）
-// add_action('woocommerce_before_calculate_totals', function($cart) {
-// if (is_admin() && !defined('DOING_AJAX')) return;
-
-// foreach ($cart->get_cart() as $cart_item) {
-//     if (!isset($cart_item['custom_quantity'])) continue;
-
-//     $product = $cart_item['data'];
-//     $base_price = floatval($product->get_sale_price()) ?: floatval($product->get_regular_price());
-//     $quantity = $cart_item['quantity'];
-//     $discount = get_discount_amount_by_quantity($quantity);
-//     $new_price = $base_price * (1 - get_discount_rate_by_quantity($quantity));
-
-
-//     if ($new_price > 0) {
-//         $product->set_price($new_price);
-//     }
-// }
-// });
 
 add_action('woocommerce_before_calculate_totals', function($cart) {
   if (is_admin() && !defined('DOING_AJAX')) return;
@@ -554,7 +527,7 @@ function add_wholesale_tier_box() {
         echo '</script>';
     }
 
-    // ✅ 所有商品都默认显示阶梯价
+    //所有商品都默认显示阶梯价
     $display_style = 'display:flex;';
 
     echo '<div class="wholesale-tier-box" style="' . esc_attr($display_style) . '">';
@@ -619,27 +592,7 @@ function add_wholesale_tier_box() {
       // const format = n => `$ ${n.toLocaleString("id-ID")}`;
       const format = n => CURRENCY_SYMBOL + ' ' + (n * CURRENCY_RATE).toLocaleString("en-US", {minimumFractionDigits: 2});
 
-      // function updateTiers(basePrice) {
-      //   tierBox.style.display = 'flex';
-      //   tier1El.textContent = format(basePrice - 1000);
-      //   tier2El.textContent = format(basePrice - 2000);
-      //   tier3El.textContent = format(basePrice - 3500);
-        
-      // }
-
-      // function updateTiers(basePrice) {
-      //   tierBox.style.display = 'flex';
-
-        
-      //   const rate = typeof CURRENCY_RATE !== 'undefined' ? CURRENCY_RATE : 1;
-      //   const symbol = typeof CURRENCY_SYMBOL !== 'undefined' ? CURRENCY_SYMBOL : '$';
-
-      //   const format = n => symbol + (n * rate).toFixed(2);
-
-      //   tier1El.textContent = format(basePrice * 0.9);  // 10% off
-      //   tier2El.textContent = format(basePrice * 0.8);  // 20% off
-      //   tier3El.textContent = format(basePrice * 0.7);  // 30% off
-      // }
+      
 
       function updateTiers(basePrice) {
         tierBox.style.display = 'flex';
@@ -684,13 +637,13 @@ function add_wholesale_tier_box() {
         }
       }
 
-      // ✅ 所有商品初始都加载主价格阶梯价
+      // 所有商品初始都加载主价格阶梯价
       updateTiers(<?php echo $base_price; ?>);
 
-      // ✅ 非变体商品初始可高亮（如数量=0时无效果）
+      // 非变体商品初始可高亮（如数量=0时无效果）
       highlightTier(0);
 
-      // ✅ 有变体时，监听点击行更新阶梯价
+      // 有变体时，监听点击行更新阶梯价
       <?php if ($is_variable): ?>
       document.querySelectorAll("tr[data-vid]").forEach(row => {
         row.querySelectorAll(".qty-btn, .qty-input").forEach(btn => {
@@ -989,8 +942,6 @@ function inject_country_selector_component() {
     if (defaultItem) {
       defaultItem.classList.add('active');
     }
-
-
 
 
     const highlightTop = 110;      // 高亮框的 top 值
@@ -1467,50 +1418,6 @@ function handle_ajax_add_to_cart_custom() {
   }
 }
   
-// 注册 Ajax 动作
-// add_action('wp_ajax_add_to_cart_custom', 'handle_ajax_add_to_cart_custom');
-// add_action('wp_ajax_nopriv_add_to_cart_custom', 'handle_ajax_add_to_cart_custom');
-
-// function handle_ajax_add_to_cart_custom() {
-//     if (!isset($_POST['product_id']) || !isset($_POST['quantity'])) {
-//         wp_send_json_error('Missing data');
-//     }
-
-//     $product_id   = absint($_POST['product_id']);
-//     $quantity     = absint($_POST['quantity']);
-//     $variation_id = isset($_POST['variation_id']) ? absint($_POST['variation_id']) : 0;
-//     $variation    = isset($_POST['variation']) ? (array) $_POST['variation'] : [];
-
-//     if ($quantity < 1 || !$product_id) {
-//         wp_send_json_error('Invalid quantity or product ID');
-//     }
-
-//     // 判断商品类型
-//     $product = wc_get_product($product_id);
-//     if (!$product) {
-//         wp_send_json_error('Product not found');
-//     }
-
-//     if ($product->is_type('variable')) {
-//         // 可变商品必须传 variation_id 和 variation 属性
-//         if (!$variation_id || empty($variation)) {
-//             wp_send_json_error('Missing variation data');
-//         }
-
-//         $added = WC()->cart->add_to_cart($product_id, $quantity, $variation_id, $variation);
-//     } else {
-//         // 简单商品直接添加
-//         $added = WC()->cart->add_to_cart($product_id, $quantity);
-//     }
-
-//     if ($added) {
-//         wp_send_json_success(['message' => 'Added to cart', 'product_id' => $product_id]);
-//     } else {
-//         wp_send_json_error('Add to cart failed');
-//     }
-// }
-
-
 
 
 
@@ -1525,11 +1432,6 @@ function wrap_product_description_in_collapse($tabs) {
                 <div class="custom-desc-wrap" id="descContent">';
             call_user_func($desc); // 输出描述内容
 
-            // echo '
-            //         <div class="desc-overlay"></div>
-            //     </div>
-            //     <button class="desc-toggle-btn" onclick="toggleProductDesc()">More details</button>
-            // </div>';
 
             echo '
                 <div class="desc-overlay"></div>
@@ -1720,15 +1622,6 @@ function convert_price($base_price) {
 
 // 自定义价格显示逻辑
 add_action('woocommerce_single_product_summary', 'custom_multicurrency_product_price', 10);
-
-// function custom_multicurrency_product_price() {
-//     global $product;
-//     if (!$product) return;
-
-//     $price = floatval($product->get_price());
-//     echo '<p class="price">' . esc_html(convert_price($price)) . '</p>';
-// }
-
 
 
 function custom_multicurrency_product_price() {
@@ -1935,26 +1828,6 @@ function custom_translate_breadcrumb_all($crumbs) {
 }
 
 
-
-
-
-
-// add_action('init', 'apply_user_language_from_cookie');
-// function apply_user_language_from_cookie() {
-//     if (isset($_COOKIE['site_lang'])) {
-//         $map = [
-//             'en' => 'en_US',
-//             'ru' => 'ru_RU',
-//             'es' => 'es_ES',
-//             'zh' => 'zh_CN',
-            
-//         ];
-//         $short = $_COOKIE['site_lang'];
-//         if (isset($map[$short])) {
-//             switch_to_locale($map[$short]); 
-//         }
-//     }
-// }
 
 add_action('init', 'apply_user_language_from_cookie');
 function apply_user_language_from_cookie() {

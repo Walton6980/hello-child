@@ -9,10 +9,6 @@
 
 
 
-
-
-
-
     <header class="main-header">
         <div class="container">
             <div class="mh-up">
@@ -601,9 +597,7 @@
                     <!-- 手机端导航栏 -->
                     <nav class="mobile-mhup">
                         <!-- 汉堡菜单 -->
-                        <!-- <a class="mo-e">
-                            <i class="fa-solid fa-bars fa-xl"></i>
-                        </a> -->
+                        
                         <a class="mo-e" href="/categories">
                             <i class="fa-solid fa-bars fa-xl"></i>
                         </a>
@@ -611,7 +605,7 @@
                         <!-- 搜索框 -->
                         <div class="mo-search">
                             <div class="mo-a">
-                                <!-- ✅ 搜索表单开始 -->
+                                <!-- 搜索表单开始 -->
                                 <form action="/" method="get" class="mo-b" onsubmit="return submitSearch(event)">
                                 <input
                                     type="text"
@@ -621,14 +615,14 @@
                                     required
                                 />
                                 </form>
-                                <!-- ✅ 搜索按钮 -->
+                                <!-- 搜索按钮 -->
                                 <i class="fa-solid fa-magnifying-glass mo-c" onclick="document.querySelector('.mo-b').submit()"></i>
                             </div>
                         </div>
 
                         <script>
                             function submitSearch(event) {
-                            // 可选逻辑：你可以拦截后自定义搜索逻辑
+                            
                             return true; // 返回 true 让表单正常提交
                             }
                         </script>
@@ -674,7 +668,7 @@
                                 if (!is_wp_error($terms)) {
                                     foreach ($terms as $term) {
                                         $link = get_term_link($term);
-                                        $name = get_translated_category_name($term); // ✅ 多语言分类名
+                                        $name = get_translated_category_name($term); // 多语言分类名
                                         echo '<a href="' . esc_url($link) . '" class="mo-j">' . esc_html($name) . '</a>';
                                     }
                                 }
@@ -696,7 +690,7 @@
                         </div>
                         <ul>
                             <?php
-                            // 指定分类 slug，比如用的是 'new-arrival' 等
+                            // 指定分类 slug
                             $menu_slugs = ['ring', 'bracelet', 'necklace', 'earrings'];
                             $categories = get_terms([
                                 'taxonomy' => 'product_cat',
@@ -759,17 +753,17 @@
                     z-index: 9999;
                     box-shadow: 0 4px 10px rgba(0,0,0,0.3);
                 ">
-                    <!-- ✅ 已加入购物车 -->
+                    <!-- 已加入购物车 -->
                     <?php echo esc_html(t([
-                        'en' => '✅ Already added to cart',
-                        'es' => '✅ Ya agregado al carrito',
-                        'ru' => '✅ Уже добавлено в корзину'
+                        'en' => ' Already added to cart',
+                        'es' => ' Ya agregado al carrito',
+                        'ru' => ' Уже добавлено в корзину'
                     ])); ?>
 
                 </div>
 
                 <div id="wishlist-toast" class="wishlist-toast">
-                <!-- ❤️ 已加入愿望清单 -->
+                <!--  已加入愿望清单 -->
                     <?php echo esc_html(t([
                         'en' => '❤️ Added to wishlist',
                         'es' => '❤️ Añadido a la lista de deseos',
@@ -802,7 +796,7 @@
             </header>
 
             <header class="custom-header">
-                <!-- 你自己的页头内容放这里，例如 logo、菜单、自定义 banner 等 -->
+                
                 <div class="container">
                     <!-- 手机端顶部标语 -->
                     <div class="mobile-top-banner">
@@ -836,7 +830,7 @@
                         <!-- 搜索框 -->
                         <div class="mo-search taylor">
                             <div class="mo-a">
-                                <!-- ✅ 搜索表单开始 -->
+                                <!-- 搜索表单开始 -->
                                 <form action="/" method="get" class="mo-b billie" onsubmit="return submitSearch(event)">
                                 <input
                                     type="text"
@@ -846,14 +840,14 @@
                                     required
                                 />
                                 </form>
-                                <!-- ✅ 搜索按钮 -->
+                                <!-- 搜索按钮 -->
                                 <i class="fa-solid fa-magnifying-glass mo-c" onclick="document.querySelector('.mo-b').submit()"></i>
                             </div>
                         </div>
 
                         <script>
                             function submitSearch(event) {
-                            // 可选逻辑：你可以拦截后自定义搜索逻辑
+                            
                             return true; // 返回 true 让表单正常提交
                             }
                         </script>
@@ -904,7 +898,7 @@
                 </div>
                 <ul>
                     <?php
-                    // 指定分类 slug，比如用的是 'new-arrival' 等
+                    // 指定分类 slug
                     $menu_slugs = ['new-arrival', 'ring', 'bracelet', 'necklace', 'earrings'];
                     $categories = get_terms([
                         'taxonomy' => 'product_cat',
@@ -926,10 +920,6 @@
             </div>
 
             
-
-                
-
-
         </div>
         <script>
             function toggleMenu() {
@@ -999,11 +989,6 @@
         visibility: visible;
         }
         </style>
-
-
-
-
-
 
     </header>
 

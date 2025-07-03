@@ -85,16 +85,16 @@ Template Name: Categories Page
         trigger.addEventListener("click", function () {
         const target = this.getAttribute("data-category");
 
-        // 1️⃣ 移除所有左侧按钮的 active 类
+        //  移除所有左侧按钮的 active 类
         triggers.forEach(t => t.classList.remove("active"));
 
-        // 2️⃣ 添加当前按钮 active 类
+        //  添加当前按钮 active 类
         this.classList.add("active");
 
-        // 3️⃣ 隐藏所有右侧内容
+        //  隐藏所有右侧内容
         contents.forEach(c => c.style.display = "none");
 
-        // 4️⃣ 显示匹配类目内容
+        //  显示匹配类目内容
         const match = document.querySelector(`.category-content[data-content="${target}"]`);
         if (match) {
             match.style.display = "block";

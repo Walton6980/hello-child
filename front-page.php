@@ -151,14 +151,11 @@
         </a>
 
 
-        
-
         <?php
         $is_home = is_front_page() || is_home() || is_product_category();
         $extra_class = $is_home ? 'only-mobile-home' : '';
         ?>
 
-        
 
         <div class="category-navbar <?php echo $extra_class; ?>" style="padding: 16px;">
             <ul class="category-navbar-item" style="display: flex; gap: 15px; padding: 0; list-style: none;">
@@ -191,11 +188,6 @@
 
             </ul>
         </div>
-
-
-        
-
-
 
         <?php if ( !is_front_page() && !is_product_category()  ): ?>
 
@@ -233,10 +225,6 @@
         </div>
 
         <?php endif; ?>
-
-
-
-
 
         <!-- mobile-flash-sale -->
         <div class="qwe">
@@ -403,8 +391,6 @@
             });
         </script>
 
-
-
         <!-- 三栏 -->
         <div class="main-content-up">
             <!-- left -->
@@ -549,9 +535,6 @@
 
                 
             </div>
-
-
-
 
             <!-- right -->
             <div class="m-content-register">
@@ -1051,28 +1034,7 @@
                         'es' => '❤️Solo para ti'
                     ]); ?>
                 </div>
-                <!-- <div class="fy-2">
-                    <div class="fy-3 active" data-category="all-categories">
-                        <div class="fy-4">All Categories</div>
-                        <div class="fy-5"></div>
-                    </div>
-                    <div class="fy-3" data-category="ring">
-                        <div class="fy-4">Ring</div>
-                        <div class="fy-5"></div>
-                    </div>
-                    <div class="fy-3" data-category="bracelet">
-                        <div class="fy-4">Bracelet</div>
-                        <div class="fy-5"></div>
-                    </div>
-                    <div class="fy-3" data-category="necklace">
-                        <div class="fy-4">Necklace</div>
-                        <div class="fy-5"></div>
-                    </div>
-                    <div class="fy-3" data-category="earrings">
-                        <div class="fy-4">Earrings</div>
-                        <div class="fy-5"></div>
-                    </div>
-                </div> -->
+                
                 <div class="fy-2">
                     <div class="fy-3 active" data-category="all-categories">
                         <div class="fy-4">
