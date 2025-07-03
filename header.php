@@ -45,7 +45,6 @@
                             
                             <div class="curlan-dropdown">
                                 <div class="mwinzdas">
-                                    <!-- <span>Your Website Settings</span> -->
                                     <span>
                                         <?php echo t([
                                             'en' => 'Your Website Settings',
@@ -56,7 +55,6 @@
 
                                 </div>
                                 <div class="chose-lan">
-                                    <!-- <span>Language:</span> -->
                                     <span>
                                         <?php echo t([
                                             'en' => 'Language:',
@@ -112,7 +110,6 @@
                         <li class="wirancxz">
                             <a href="http://my-website.local/my-account/">
                                 <i class="fas fa-user"></i>
-                                <!-- <span>Account</span> -->
                                 <span>
                                     <?php echo t([
                                         'en' => 'Account',
@@ -129,7 +126,6 @@
                                 $account_url = esc_url( get_permalink( get_option('woocommerce_myaccount_page_id') ) );
                             ?>
                                 <p class="acc-doen">
-                                <!-- Hello， -->
                                 <span>
                                     <?php echo t([
                                         'en' => 'Hello',
@@ -142,7 +138,6 @@
                                     <?php echo esc_html( $current_user->display_name ); ?>
                                 </a>
                                 </p>
-                                <!-- <a href="<?php echo $account_url; ?>">Account</a> -->
                                 <a href="<?php echo esc_url( wp_logout_url( home_url() ) ); ?>">
                                     <!-- Log out -->
                                     <span>
@@ -227,17 +222,8 @@
                                         <a href="<?php echo esc_url( $product_link ); ?>" class="mini-cart-thumb">
                                         <?php echo $thumbnail; ?>
                                         </a>
-                                        <!-- <div class="mini-cart-details">
-                                            <a href="<?php echo esc_url( $product_link ); ?>"><?php echo esc_html( $product_name ); ?></a>
-                                            <div class="meucna">
-                                                <span class="qty-price"><?php $final_price = get_discounted_price_for_cart_item( $cart_item );echo wc_price( $final_price );?></span>
-                                                 
-                                                <span class="qty-price"><?php echo $cart_item['quantity']; ?></span>
-                                            </div>                       
-                                        </div> -->
 
                                         
-
                                         <div class="mini-cart-details">
                                             <a href="<?php echo esc_url($product_link); ?>">
                                                 <?php
@@ -280,15 +266,12 @@
                                         </p>
                                         
                                         <p>
-                                            <?php
-                                                
-
+                                            <?php                                             
                                                 echo wc_price(WC()->cart->get_cart_contents_total());
                                             ?>
                                         </p>
 
                                     </div>
-                                    <!-- <a href="<?php echo wc_get_cart_url(); ?>" class="button799">View Cart</a> -->
                                     <a href="<?php echo wc_get_checkout_url(); ?>" class="button799 checkout">
                                         <!-- Checkout -->
                                         <?php echo t([
@@ -337,9 +320,6 @@
                 <!-- 手机端导航栏 -->
                 <nav class="mobile-mhup">
                     <!-- 汉堡菜单 -->
-                    <!-- <a class="mo-e">
-                        <i class="fa-solid fa-bars fa-xl"></i>
-                    </a> -->
                     <a class="mo-e" href="/categories">
                         <i class="fa-solid fa-bars fa-xl"></i>
                     </a>
@@ -347,7 +327,7 @@
                     <!-- 搜索框 -->
                     <div class="mo-search">
                         <div class="mo-a">
-                            <!-- ✅ 搜索表单开始 -->
+                            <!-- 搜索表单开始 -->
                             <form action="/" method="get" class="mo-b" onsubmit="return submitSearch(event)">
                             <input
                                 type="text"
@@ -357,14 +337,14 @@
                                 required
                             />
                             </form>
-                            <!-- ✅ 搜索按钮 -->
+                            <!-- 搜索按钮 -->
                             <i class="fa-solid fa-magnifying-glass mo-c" onclick="document.querySelector('.mo-b').submit()"></i>
                         </div>
                     </div>
 
                     <script>
                         function submitSearch(event) {
-                        // 可选逻辑：你可以拦截后自定义搜索逻辑
+                        // 可选逻辑：拦截后自定义搜索逻辑
                         return true; // 返回 true 让表单正常提交
                         }
                     </script>
@@ -380,7 +360,6 @@
                     <div class="lapppp"></div>
                     <!-- 选项框 -->
                     <div class="lapp-front">
-                        <!-- 语言选项可放这里 -->
                         <div class="curlan-dropdown">
                             <div class="mwinzdas">
                                 <!-- <span>Your Website Settings</span> -->
@@ -428,10 +407,6 @@
                             </div>
 
                             <script>
-                                // function setLang(lang) {
-                                // document.cookie = "site_lang=" + lang + "; path=/; max-age=31536000"; 
-                                // location.reload(); 
-                                // }
 
                                 
                                 function setLang(lang) {
@@ -468,7 +443,7 @@
                             document.body.style.overflow = '';
                         }
 
-                        // ✅ 修正这里的变量名
+                        // 修正这里的变量名
                         if (openBtn666) openBtn666.addEventListener('click', openPopup666);
                         if (overlay666) overlay666.addEventListener('click', closePopup666);
                     });
@@ -505,7 +480,7 @@
                             if (!is_wp_error($terms)) {
                                 foreach ($terms as $term) {
                                     $link = get_term_link($term);
-                                    $name = get_translated_category_name($term); // ✅ 多语言分类名
+                                    $name = get_translated_category_name($term); // 多语言分类名
                                     echo '<a href="' . esc_url($link) . '" class="mo-j">' . esc_html($name) . '</a>';
                                 }
                             }

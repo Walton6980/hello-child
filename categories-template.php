@@ -9,9 +9,6 @@ Template Name: Categories Page
 <main class="custom-categories-main">
     <div class="container cate-container">
         
-
-        
-
     <!-- 左侧分类按钮 -->
     <div class="cate-left">
     <div class="cate-left-a">
@@ -45,8 +42,6 @@ Template Name: Categories Page
                 <a href="<?php echo get_term_link($cat); ?>">
                     
                 <?php echo esc_html( get_translated_category_name($cat) ); ?>
-
-
 
                 </a>
                 <i class="fa-solid fa-angle-right qwe5"></i>

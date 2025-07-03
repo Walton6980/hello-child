@@ -3,7 +3,6 @@
 <main class="main-content">
     <div class="container">
 
-
         <!-- 手机端轮播图 -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
         <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
@@ -170,7 +169,7 @@
                     $thumbnail_id = get_term_meta($term->term_id, 'thumbnail_id', true);
                     $image_url = $thumbnail_id ? wp_get_attachment_url($thumbnail_id) : wc_placeholder_img_src();
                     $link = get_term_link($term);
-                    $name = get_translated_category_name($term); // ✅ 多语言分类名
+                    $name = get_translated_category_name($term); // 多语言分类名
                 ?>
 
                 <li style="text-align: center;">
@@ -317,7 +316,7 @@
                     'orderby'        => 'date',
                     'order'          => 'DESC',
                     'meta_query'     => [
-                    [ 'key' => '_sale_price', 'compare' => 'EXISTS' ] // 只显示促销商品（可选）
+                    [ 'key' => '_sale_price', 'compare' => 'EXISTS' ] // 只显示促销商品
                     ]
                 ];
 
@@ -436,7 +435,7 @@
 
                                         foreach ($products as $product):
                                             $product_id    = $product->get_id();
-                                            $product_title = get_translated_product_title($product); // ✅ 修改在这里
+                                            $product_title = get_translated_product_title($product); 
                                             $product_link  = get_permalink($product_id);
                                             $image_array   = wp_get_attachment_image_src($product->get_image_id(), 'thumbnail');
                                             $product_img   = $image_array ? $image_array[0] : 'https://via.placeholder.com/80';
@@ -898,10 +897,9 @@
                         <a href="<?php echo esc_url($link); ?>">
                             <img src="<?php echo esc_url($image); ?>" alt="<?php echo esc_attr($cat->name); ?>">
                             <div class="yes">
-                            <!-- <span><?php echo esc_html($cat->name); ?></span> -->
+                            
                             <span><?php echo esc_html(get_translated_category_name($cat)); ?></span>
                             
-
                             </div>
                         </a>
                         </div>

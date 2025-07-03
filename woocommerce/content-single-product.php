@@ -108,13 +108,13 @@ if ( post_password_required() ) {
 			if (discount > 0) {
 			wholesaleEl.textContent = `¥${newPrice.toLocaleString()}`;
 			savingsEl.textContent = `have save ¥${totalSave.toLocaleString()}`;
-			wholesaleLine.style.display = 'block'; // ✅ 显示整个区域
+			wholesaleLine.style.display = 'block'; // 显示整个区域
 
 			// 原价划线
 			priceAmount.style.textDecoration = 'line-through';
 			priceAmount.style.color = '#999';
 			} else {
-			wholesaleLine.style.display = 'none'; // ✅ 整体隐藏无占位
+			wholesaleLine.style.display = 'none'; // 整体隐藏无占位
 			priceAmount.style.textDecoration = 'none';
 			priceAmount.style.color = '';
 			}

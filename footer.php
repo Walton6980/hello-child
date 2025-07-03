@@ -1,4 +1,4 @@
-</main> <!-- 可选，关闭主内容区域 -->
+</main> 
 
 <footer id="colophon" >
   <div class="footer-inner">
@@ -324,7 +324,6 @@
             </a>
             <a class='xcxx' role="tab" href="/categories" data-path="/categories">
                 <div class="aaaa">
-                    <!-- <img class='cccc' src="http://my-website.local/wp-content/uploads/2025/06/gdscategory-2.png" alt=""> -->
                     <img class='cccc' src="http://my-website.local/wp-content/uploads/2025/06/ico-category.png" alt="">
                 </div>
                 <div class="bbbb">
@@ -393,18 +392,12 @@
         <div class="bigb">
             <div class="biga">
                 <div class="tu-1">
-                    <!-- <img src="" alt="" class="tu-4"> -->
-                    <!-- <i class="fa-solid fa-heart-circle-plus tu-4"></i> -->
                     <a href="#"
                         class="add_to_wishlist single_add_to_wishlist"
                         data-product-id="<?php echo esc_attr( $product_id ); ?>"
                         data-product-type="simple"
                         data-title="Add to wishlist"
-                        style="margin-left: 10px; font-size: 18px; color: #d60000;">
-                        <!-- <div>
-                            Add to wishlist
-                        </div> -->
-                        
+                        style="margin-left: 10px; font-size: 18px; color: #d60000;">                       
                         <i class="fa-solid fa-heart-circle-plus"></i>
                     </a>
                 </div>

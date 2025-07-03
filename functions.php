@@ -34,7 +34,7 @@ function enqueue_foryou_ajax_script() {
         true
     );
 
-    // 把 admin-ajax.php 的地址传进去（前端 JS 中可用 foryou_ajax.ajax_url）
+    // 把 admin-ajax.php 的地址传进去
     wp_localize_script('foryou-ajax', 'foryou_ajax', array(
         'ajax_url' => admin_url('admin-ajax.php')
     ));
@@ -154,12 +154,7 @@ add_action('wp_footer', function () {
         <path d="M201.4 137.4c12.5-12.5 32.8-12.5 45.3 0l160 160c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L224 205.3 86.6 342.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l160-160z"/>
       </svg>
     </button>
-<!-- 
-    <a href="#" id="back-top" class="right-s-a" aria-label="Back to Top">
-      <div class="r-s-a-d">
-        <img src="your-icon-path.svg" alt="back to top" class="r-s-i">
-      </div>
-    </a> -->
+
 
     <style>
       .back-to-top {
@@ -367,26 +362,7 @@ add_action('woocommerce_before_main_content', function () {
     );
     $products = new WP_Query($args);
 
-    // if ($products->have_posts()) {
-    //     echo '<div class="sidebar-products" style="margin-top: 20px;">';
-    //     echo '<h4 style="margin-bottom: 10px;">
-    //     Recommend
-    //     </h4>';
-    //     while ($products->have_posts()) {
-    //         $products->the_post();
-    //         global $product;
-    //         echo '<div class="sidebar-product" style="margin-bottom: 15px;">';
-    //         echo '<a href="' . get_permalink() . '" style="display: block; text-align: center;">';
-    //         echo woocommerce_get_product_thumbnail('woocommerce_thumbnail'); // 默认尺寸
-    //         // echo '<div style="font-size: 14px; margin-top: 5px;">' . get_the_title() . '</div>';
-    //         echo '<div style="font-size: 14px; margin-top: 5px;">' . esc_html(get_translated_product_title($product)) . '</div>';
 
-    //         echo '</a>';
-    //         echo '</div>';
-    //     }
-    //     echo '</div>';
-    //     wp_reset_postdata();
-    // }
 
     if ($products->have_posts()) {
         echo '<div class="sidebar-products" style="margin-top: 20px;">';
@@ -457,9 +433,6 @@ add_action('woocommerce_before_main_content', function () {
           data-product-type="simple"
           data-title="Add to wishlist"
           style="margin-left: 10px; font-size: 18px; color: #d60000;">
-          <!-- <div>
-            Add to wishlist
-          </div> -->
           
           <i class="fa-solid fa-heart-circle-plus"></i>
       </a>
@@ -491,7 +464,7 @@ add_action('woocommerce_before_calculate_totals', function($cart) {
       $base_price = floatval($product->get_sale_price()) ?: floatval($product->get_regular_price());
       $quantity = $cart_item['quantity'];
       
-      // ✅ 使用折扣率
+      // 使用折扣率
       $rate = get_discount_rate_by_quantity($quantity);
       $new_price = $base_price * (1 - $rate);
 
@@ -508,7 +481,7 @@ function add_wholesale_tier_box() {
     global $product;
 
     $is_variable = $product instanceof WC_Product_Variable;
-    // $base_price = floatval($product->get_price());
+
     $base_price = $product instanceof WC_Product_Variable
       ? min(array_map(fn($v) => floatval($v['display_price']), $product->get_available_variations()))
       : floatval($product->get_price());
@@ -589,7 +562,6 @@ function add_wholesale_tier_box() {
       const label3El = document.getElementById("tier3-label");
 
 
-      // const format = n => `$ ${n.toLocaleString("id-ID")}`;
       const format = n => CURRENCY_SYMBOL + ' ' + (n * CURRENCY_RATE).toLocaleString("en-US", {minimumFractionDigits: 2});
 
       
@@ -600,13 +572,13 @@ function add_wholesale_tier_box() {
         const rate = typeof CURRENCY_RATE !== 'undefined' ? CURRENCY_RATE : 1;
         const symbol = typeof CURRENCY_SYMBOL !== 'undefined' ? CURRENCY_SYMBOL : '$';
 
-        // ✅ 使用 toLocaleString 加入千位分隔符，保留两位小数
+        // 使用 toLocaleString 加入千位分隔符，保留两位小数
         const format = n => symbol + (n * rate).toLocaleString(undefined, {
           minimumFractionDigits: 2,
           maximumFractionDigits: 2
         });
 
-        // 👇 你可以调整这些折扣比例
+        // 调整这些折扣比例
         tier1El.textContent = format(basePrice * 0.9); // 10% off
         tier2El.textContent = format(basePrice * 0.8); // 20% off
         tier3El.textContent = format(basePrice * 0.7); // 30% off
@@ -1205,7 +1177,7 @@ function render_bulk_variation_table() {
 
     <script>
       document.addEventListener("DOMContentLoaded", function () {
-          // 👉 表单提交 Ajax 加购逻辑
+          // 表单提交 Ajax 加购逻辑
           const form = document.querySelector(".bulk-variation-form");
           form.addEventListener("submit", function (e) {
               e.preventDefault();
@@ -1228,7 +1200,7 @@ function render_bulk_variation_table() {
               });
           });
 
-          // 👉 加减按钮逻辑（和 input 同步）
+          // 加减按钮逻辑（和 input 同步）
           document.querySelectorAll(".qty-wrapper").forEach(wrapper => {
               const input = wrapper.querySelector(".qty-input");
               const minus = wrapper.querySelector(".qty-btn.minus");
@@ -1269,7 +1241,7 @@ function handle_bulk_variation_ajax() {
             $product = wc_get_product($variation_id);
             if (!$product) continue;
 
-            // 🔍 查找是否已存在相同变体项
+            // 查找是否已存在相同变体项
             $found = false;
             foreach (WC()->cart->get_cart() as $cart_key => $item) {
                 if ($item['variation_id'] == $variation_id) {
@@ -1388,7 +1360,6 @@ add_action('wp_footer', function () {
   }
   
 </style>
-<!-- <script src="https://plugin-code.salesmartly.com/js/project_290815_298259_1743488885.js" defer></script> -->
 <?php
 });
 
@@ -1457,7 +1428,7 @@ function wrap_product_description_in_collapse($tabs) {
 add_action('wp_footer', function () {
   if (!is_product()) return;
 
-  // 用你的 t() 函数获取当前语言的翻译
+  // 用 t() 函数获取当前语言的翻译
   $label_more = t([
     'en' => 'More details',
     'es' => 'Más detalles',
@@ -1532,10 +1503,8 @@ function get_translated_product_title($product) {
   $title = $product->get_name();
 
   $custom_titles = [
-      // 'zh' => 'product_title_zh',
       'es' => 'product_title_es',
       'ru' => 'product_title_ru',
-      // 'id' => 'product_title_id'
   ];
 
   if (isset($custom_titles[$lang])) {
@@ -1558,8 +1527,6 @@ function get_translated_category_name($term) {
   $custom_fields = [
       'es' => 'title_es',
       'ru' => 'title_ru',
-      'zh' => 'title_zh',
-      // 其他语言...
   ];
 
   // 获取对应语言的自定义字段值
@@ -1582,7 +1549,7 @@ function custom_translated_product_title() {
 
     if (!$product) return;
 
-    // 你自己的函数
+    
     $title = get_translated_product_title($product);
 
     echo '<h1 class="product_title entry-title">' . esc_html($title) . '</h1>';
@@ -1654,7 +1621,7 @@ function custom_multicurrency_product_price() {
 
 
 function get_current_country() {
-  // 优先 cookie，后续可以接入 IP 定位
+  // 优先 cookie
   return $_COOKIE['site_country'] ?? 'US'; // fallback
 }
 
@@ -1725,10 +1692,10 @@ function get_translated_product_description($product) {
   $default_description = $product->get_description();
 
   $custom_descriptions = [
-      'zh' => 'product_desc_zh',
+      // 'zh' => 'product_desc_zh',
       'es' => 'product_desc_es',
       'ru' => 'product_desc_ru',
-      'id' => 'product_desc_id',
+      // 'id' => 'product_desc_id',
   ];
 
   if (isset($custom_descriptions[$lang])) {
@@ -1745,7 +1712,7 @@ function get_translated_product_description($product) {
 // 商品页语言变更
 add_filter('woocommerce_product_tabs', 'custom_rename_product_tabs', 98);
 function custom_rename_product_tabs($tabs) {
-    $lang = get_current_lang(); // 你自己的语言判断函数
+    $lang = get_current_lang(); // 语言判断函数
 
     if ($lang === 'ru') { 
         $tabs['description']['title'] = 'описание';
