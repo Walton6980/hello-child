@@ -28,7 +28,9 @@ $gallery_ids = $product->get_gallery_image_ids();
         <?php echo esc_html(t([
             'en' => 'Min. order: ',
             'es' => 'Pedido mínimo:',
-            'ru' => 'Минимальный заказ:'
+            'ru' => 'Минимальный заказ:',
+            'pt' => 'Pedido mínimo:',
+            'ar' => 'الحد الأدنى للطلب:',
         ])); ?>
         <?php echo $min_order ?: '1'; ?> piece</div>
     <div class="shierpx">
@@ -37,7 +39,10 @@ $gallery_ids = $product->get_gallery_image_ids();
             <?php echo esc_html(t([
                 'en' => 'Sold: ',
                 'es' => 'Vendido: ',
-                'ru' => 'Продал: '
+                'ru' => 'Продал: ',
+                'pt' => 'Vendido:',
+                'ar' => 'مُباع:',
+                
             ])); ?>
             <?php echo $product->get_total_sales(); ?></div>
         <div>
@@ -47,7 +52,9 @@ $gallery_ids = $product->get_gallery_image_ids();
                     <?php echo esc_html(t([
                         'en' => 'Wholesale: ',
                         'es' => 'Al por mayor: ',
-                        'ru' => 'Оптовая продажа: '
+                        'ru' => 'Оптовая продажа: ',
+                        'pt' => 'Atacado:',
+                        'ar' => 'بالجملة:'
                     ])); ?>
                     <?php echo wc_price($wholesale_price); ?></span>
             <?php else: ?>
@@ -56,7 +63,9 @@ $gallery_ids = $product->get_gallery_image_ids();
                     <?php echo esc_html(t([
                         'en' => 'Login &gt;&gt;',
                         'es' => 'Iniciar sesión &gt;&gt;',
-                        'ru' => 'Войти &gt;&gt;'
+                        'ru' => 'Войти &gt;&gt;',
+                        'pt' => 'Entrar &gt;&gt;',
+                        'ar' => 'تسجيل الدخول &gt;&gt;'
                     ])); ?>
                 </a>
             <?php endif; ?>

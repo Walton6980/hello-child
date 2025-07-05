@@ -317,7 +317,9 @@
                         <?php echo esc_html(t([
                             'en' => 'Home',
                             'es' => 'Hogar',
-                            'ru' => 'Дом'
+                            'ru' => 'Дом',
+                            'pt' => 'Lar',
+                            'ar' => 'بيت'
                         ])); ?>
                     </span>
                 </div>
@@ -332,7 +334,9 @@
                         <?php echo esc_html(t([
                             'en' => 'Categories',
                             'es' => 'Categorías',
-                            'ru' => 'Категории'
+                            'ru' => 'Категории',
+                            'pt' => 'Categorias',
+                            'ar' => 'فئات'
                         ])); ?>
                     </span>
                 </div>
@@ -347,7 +351,9 @@
                         <?php echo esc_html(t([
                             'en' => 'New',
                             'es' => 'Nuevo',
-                            'ru' => 'Новый'
+                            'ru' => 'Новый',
+                            'pt' => 'Novo',
+                            'ar' => 'جديد'
                         ])); ?>
                     </span>
                 </div>
@@ -365,7 +371,9 @@
                         <?php echo esc_html(t([
                             'en' => 'Cart',
                             'es' => 'Carro',
-                            'ru' => 'Корзина'
+                            'ru' => 'Корзина',
+                            'pt' => 'Carrinho',
+                            'ar' => 'عربة التسوق'
                         ])); ?>
                     </span>
                 </div>
@@ -380,7 +388,9 @@
                         <?php echo esc_html(t([
                             'en' => 'Account',
                             'es' => 'Cuenta',
-                            'ru' => 'Счет'
+                            'ru' => 'Счет',
+                            'pt' => 'Conta',
+                            'ar' => 'حساب'
                         ])); ?>
                     </span>
                 </div>
@@ -407,7 +417,9 @@
                         <?php echo esc_html(t([
                             'en' => 'Add To Cart',
                             'es' => 'Añadir a la cesta',
-                            'ru' => 'Добавить в корзину'
+                            'ru' => 'Добавить в корзину',
+                            'pt' => 'Adicionar ao carrinho',
+                            'ar' => 'أضف إلى السلة'
                         ])); ?>
                     </span>
                 </div>
@@ -419,7 +431,9 @@
                     <?php echo esc_html(t([
                             'en' => 'Paypal safeguard your property.',
                             'es' => 'Paypal protege tu propiedad.',
-                            'ru' => 'PayPal защитит вашу собственность.'
+                            'ru' => 'PayPal защитит вашу собственность.',
+                            'pt' => 'O Paypal protege sua propriedade.',
+                            'ar' => 'باي بال يحمي ممتلكاتك.'
                         ])); ?>
                 </span>
             </div>
@@ -460,7 +474,9 @@
                             <?php echo esc_html(t([
                                 'en' => 'Color',
                                 'es' => 'Color',
-                                'ru' => 'Цвет'
+                                'ru' => 'Цвет',
+                                'pt' => 'Cor',
+                                'ar' => 'لون'
                             ])); ?>
                         </div>
                         <div class="jj-1">
@@ -468,7 +484,9 @@
                             <?php echo esc_html(t([
                                 'en' => 'Sku',
                                 'es' => 'SKU',
-                                'ru' => 'Артикул'
+                                'ru' => 'Артикул',
+                                'pt' => 'Sku',
+                                'ar' => 'رمز المنتج'
                             ])); ?>
                         </div>
                         <div class="jj-1">
@@ -476,7 +494,9 @@
                             <?php echo esc_html(t([
                                 'en' => 'Price',
                                 'es' => 'Precio',
-                                'ru' => 'Цена'
+                                'ru' => 'Цена',
+                                'pt' => 'Preço',
+                                'ar' => 'سعر'
                             ])); ?>
                         </div>
                         <div class="jj-4">
@@ -484,7 +504,9 @@
                             <?php echo esc_html(t([
                                 'en' => 'Quantity',
                                 'es' => 'Cantidad',
-                                'ru' => 'Количество'
+                                'ru' => 'Количество',
+                                'pt' => 'Quantidade',
+                                'ar' => 'كمية'
                             ])); ?>
                         </div>
                     </div>
@@ -566,7 +588,9 @@
                                 <?php echo esc_html(t([
                                     'en' => 'Add To Cart',
                                     'es' => 'Añadir a la cesta',
-                                    'ru' => 'Добавить в корзину'
+                                    'ru' => 'Добавить в корзину',
+                                    'pt' => 'Adicionar ao carrinho',
+                                    'ar' => 'أضف إلى السلة'
                                 ])); ?>
                             </span>
                         </div>                   

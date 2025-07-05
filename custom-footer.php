@@ -8,7 +8,9 @@
                 <img class='cccc' src="http://my-website.local/wp-content/uploads/2025/06/img_v3_02lf_a440cb43-b083-46ff-8089-9c17ea754d8g.png" alt="">
             </div>
             <div class="bbbb">
-                <span>Home</span>
+                <span>
+                    Home
+                </span>
             </div>
         </a>
         <a class='xcxx' role="tab" href="/categories" data-path="/categories">
@@ -16,7 +18,9 @@
                 <img class='cccc' src="http://my-website.local/wp-content/uploads/2025/06/ico-category.png" alt="">
             </div>
             <div class="bbbb">
-                <span>Categories</span>
+                <span>
+                    Categories
+                </span>
             </div>
         </a>
         <a class='xcxx' role="tab" href="#" data-path="#">
@@ -24,7 +28,9 @@
                 <img class='cccc' src="http://my-website.local/wp-content/uploads/2025/06/new-1.png" alt="">
             </div>
             <div class="bbbb">
-                <span>New</span>
+                <span>
+                    New
+                </span>
             </div>
         </a>
         <a class='xcxx' role="tab" href="/cart" data-path="/cart">
@@ -35,7 +41,9 @@
                 </div>
             </div>
             <div class="bbbb">
-                <span>Cart</span>
+                <span>
+                    Cart
+                </span>
             </div>
         </a>
         <a class='xcxx' role="tab" href="/my-account" data-path="/my-account">
@@ -43,7 +51,9 @@
                 <img class='cccc' src="http://my-website.local/wp-content/uploads/2025/06/user-1.png" alt="">
             </div>
             <div class="bbbb">
-                <span>Account</span>
+                <span>
+                    Account
+                </span>
             </div>
         </a>
     </div>

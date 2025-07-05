@@ -94,7 +94,9 @@
                             <?php echo esc_html(t([
                                 'en' => 'New User Deal',
                                 'es' => 'Oferta para nuevos usuarios',
-                                'ru' => 'Сделка для новых пользователей'
+                                'ru' => 'Сделка для новых пользователей',
+                                'pt' => 'Oferta para novos usuários',
+                                'ar' => 'صفقة المستخدم الجديد'
                             ])); ?>
                         </div>
                         <div class="sy-o">
@@ -104,7 +106,9 @@
                                 <?php echo esc_html(t([
                                     'en' => 'FREE SHIPPING',
                                     'es' => 'ENVÍO GRATIS',
-                                    'ru' => 'БЕСПЛАТНАЯ ДОСТАВКА'
+                                    'ru' => 'БЕСПЛАТНАЯ ДОСТАВКА',
+                                    'pt' => 'FRETE GRÁTIS',
+                                    'ar' => 'ًالشحن مجانا'
                                 ])); ?>
                             </span>
                         </div>
@@ -141,7 +145,9 @@
                             <?php echo esc_html(t([
                                 'en' => 'SHOP NOW',
                                 'es' => 'COMPRAR AHORA',
-                                'ru' => 'КУПИТЬ СЕЙЧАС'
+                                'ru' => 'КУПИТЬ СЕЙЧАС',
+                                'pt' => 'COMPRE AGORA',
+                                'ar' => 'تسوق الآن'
                             ])); ?>
                         </div>
                     </div>
@@ -229,15 +235,19 @@
         <div class="qwe">
             <div class="wer">
                 <a class="sdf" href="#">
-                    <i class="fa-solid fa-bolt xcv"></i>
-                    <span>
-                        <!-- Flash Deal -->
-                        <?php echo esc_html(t([
-                            'en' => 'Flash Deal',
-                            'es' => 'Oferta relámpago',
-                            'ru' => 'Горячая сделка'
-                        ])); ?>
-                    </span>
+                    <div class="busdan">
+                        <i class="fa-solid fa-bolt xcv"></i>
+                        <span>
+                            <!-- Flash Deal -->
+                            <?php echo esc_html(t([
+                                'en' => 'Flash Deal',
+                                'es' => 'Oferta relámpago',
+                                'ru' => 'Горячая сделка',
+                                'pt' => 'Oferta relâmpago',
+                                'ar' => 'صفقة فلاش'
+                            ])); ?>
+                        </span>
+                    </div>
                     
                     <span class="dfg">
                         <i class="fa-solid fa-angle-right yhn"></i>
@@ -342,16 +352,93 @@
                         <img class="ybb" src="<?php echo get_the_post_thumbnail_url($product_id, 'medium'); ?>" alt="<?php echo esc_attr(get_the_title()); ?>">
 
                         <!-- 原现价 -->
+                        <!-- <div class="oaa">
+                            <div class="ksrn"><?php echo wc_price($sale_price); ?></div>
+                            <div class="ihis"><?php echo wc_price($regular_price); ?></div>
+                        </div> -->
                         <div class="oaa">
-                        <div class="ksrn">AU <?php echo wc_price($sale_price, ['currency' => 'AUD']); ?></div>
-                        <div class="ihis">AU <?php echo wc_price($regular_price, ['currency' => 'AUD']); ?></div>
+                            <div class="ksrn"><?php echo convert_price($sale_price); ?></div>
+                            <div class="ihis"><?php echo convert_price($regular_price); ?></div>
                         </div>
+
+
+                        
+
                     </a>
                     </div>
                 <?php endwhile; wp_reset_postdata(); ?>
             </div>
 
+            
+
+
         </div>
+
+        <div class="dahu">
+                <div class="dahu-1 m-title">
+                    <h2 class="dahu-3">Wholesale Trendy Discovery</h2>
+                    <a href="#"><i class="fa-solid fa-angle-right"></i></a>
+                </div>
+                <div class="dahu-2">
+                    <?php
+                    $terms = get_terms([
+                        'taxonomy'   => 'product_cat',
+                        'hide_empty' => true,
+                        'number'     => 5, // 显示几个分类
+                    ]);
+
+                    foreach ($terms as $term) :
+                        $term_link = get_term_link($term);
+                        $term_name = $term->name;
+
+                        // 获取分类下的 3 个商品
+                        $products = wc_get_products([
+                            'status' => 'publish',
+                            'limit' => 3,
+                            'category' => [$term->slug],
+                            'orderby' => 'date',
+                            'order' => 'DESC',
+                        ]);
+                    ?>
+                        <a class="dahu-5" href="<?php echo esc_url($term_link); ?>">
+                            <div class="dahu-6">
+                                <div class="dahu-7"><?php echo esc_html($term_name); ?></div>
+                            </div>
+                            <div class="dahu-9">
+                                <!-- <?php foreach ($products as $product): ?>
+                                    <div class="dahu-10">
+                                        <img class="dahu-11" src="<?php echo esc_url(get_the_post_thumbnail_url($product->get_id(), 'medium')); ?>" alt="">
+                                    </div>
+                                <?php endforeach; ?> -->
+
+                                <?php foreach ($products as $index => $product): ?>
+                                    <?php
+                                        $img_url = get_the_post_thumbnail_url($product->get_id(), 'medium');
+                                        if (!$img_url) continue;
+                                    ?>
+                                    
+                                    <?php if ($index === 0): ?>
+                                        <!-- 图片1：主图，使用 .dahu-10 -->
+                                        <div class="dahu-10">
+                                            <img class="dahu-11" src="<?php echo esc_url($img_url); ?>" alt="">
+                                        </div>
+                                    <?php else: ?>
+                                        <!-- 图片2、3：不包 .dahu-10 -->
+                                        <img class="dahu-11" src="<?php echo esc_url($img_url); ?>" alt="">
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
+
+                            </div>
+                        </a>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+
+
+            
+
+
+        
 
         <!-- 手机端邀请登录 -->
         <div class="ormzd">
@@ -459,7 +546,8 @@
             <!-- middle -->
             <div class="m-content-banner">
                 <!-- 轮播图 -->
-                <div class="shell">
+
+                <!-- <div class="shell">
                     <ul class="images">
                         <li class="img"></li>
                         <li class="img"></li>
@@ -472,7 +560,77 @@
                         <div class="button-left">&lt;</div>
                         <div class="button-right">&gt;</div>
                     </div>
+                </div> -->
+
+                <?php
+                // 获取一篇文章的ID（用来取ACF字段）
+                $first_post = get_posts([
+                'numberposts' => 1,
+                'post_type' => 'post',
+                ]);
+
+                if ($first_post) {
+                $post_id = $first_post[0]->ID;
+                $images = [];
+
+                for ($i = 1; $i <= 5; $i++) {
+                    $img = get_field("image_$i", $post_id);
+                    if ($img) {
+                    $images[] = $img;
+                    }
+                }
+
+                if (!empty($images)) :
+                ?>
+
+                <div class="swiper custom-swiper-container">
+                    <div class="swiper-wrapper">
+                        <?php foreach ($images as $img): ?>
+                            <div class="swiper-slide">
+                                <img src="<?php echo esc_url($img); ?>" class="slide-image" alt="" />
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+
+                    <!-- 左右箭头 -->
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
                 </div>
+
+
+
+                <?php endif; } ?>
+
+
+                <script>
+                    document.addEventListener('DOMContentLoaded', function () {
+                        const swiper = new Swiper('.custom-swiper-container', {
+                            loop: true,
+                            autoplay: {
+                                delay: 3000,
+                                disableOnInteraction: false,
+                            },
+                            navigation: {
+                                nextEl: '.swiper-button-next',
+                                prevEl: '.swiper-button-prev',
+                            },
+                            allowTouchMove: false // 禁用触摸/鼠标拖动
+                        });
+                    });
+                </script>
+
+
+
+
+
+               
+
+
+
+
+
+
+
 
                 <!-- flash sale -->
                 <div class="m-flashsale">
@@ -484,7 +642,9 @@
                                 <?php echo t([
                                     'en' => 'Flash Deal',
                                     'ru' => 'Горячая сделка',
-                                    'es' => 'Oferta relámpago'
+                                    'es' => 'Oferta relámpago',
+                                    'pt' => 'Oferta relâmpago',
+                                    'ar' => 'صفقة فلاش'
                                 ]); ?>
                             </div>
                             <div class="m-ff"><a href='#' class="m-fff">
@@ -492,7 +652,9 @@
                                 <?php echo t([
                                     'en' => 'Up to 80% off for a limited time >>',
                                     'ru' => 'Скидки до 80% в течение ограниченного времени >>',
-                                    'es' => 'Hasta un 80% de descuento por tiempo limitado >>'
+                                    'es' => 'Hasta un 80% de descuento por tiempo limitado >>',
+                                    'pt' => 'Até 80% de desconto por tempo limitado >>',
+                                    'ar' => 'خصم يصل إلى 80% لفترة محدودة >>'
                                 ]); ?>
                             </a></div>
                         </div>
@@ -504,7 +666,9 @@
                                     <?php echo t([
                                         'en' => 'ends in',
                                         'ru' => 'заканчивается в',
-                                        'es' => 'termina en'
+                                        'es' => 'termina en',
+                                        'pt' => 'termina em',
+                                        'ar' => 'ينتهي في'
                                     ]); ?>
                                 </span>
                                 <span>:</span>
@@ -521,19 +685,184 @@
                         </div>
                     </div>
                     <!-- 轮播图 -->
-                    <div class="carousel-wrapper">
+
+
+                    <!-- <div class="carousel-wrapper">
                         <button class="carousel-btn left">&#8249;</button>
                             <div class="carousel-track-wrapper">
                                 <div class="carousel-track" id="track">
-                                <!-- JS 会动态填充内容 -->
+                             
                                 </div>
                             </div>
                         <button class="carousel-btn right">&#8250;</button>
+                    </div> -->
+
+                    <div class="carousel-wrapper">
+                        <button class="carousel-btn left">&#8249;</button>
+                        <div class="carousel-track-wrapper">
+                            <div class="carousel-track" id="track">
+                                <?php
+                                $args = [
+                                    'post_type'      => 'product',
+                                    'posts_per_page' => 8,
+                                    'orderby'        => 'date',
+                                    'order'          => 'DESC',
+                                    'meta_query'     => [
+                                        [ 'key' => '_sale_price', 'compare' => 'EXISTS' ]
+                                    ]
+                                ];
+
+                                $loop = new WP_Query($args);
+                                $items = [];
+
+                                while ($loop->have_posts()) : $loop->the_post();
+                                    global $product;
+                                    $product_id = get_the_ID();
+                                    $regular_price = $product->get_regular_price();
+                                    $sale_price = $product->get_sale_price();
+                                    $discount_percent = $regular_price > 0 ? round((($regular_price - $sale_price) / $regular_price) * 100) : 0;
+
+                                    ob_start(); ?>
+                                    <div class="carousel-item">
+                                        <a href="<?php echo get_permalink($product_id); ?>">
+                                            <?php if ($discount_percent > 0): ?>
+                                                <div class="discount">-<?php echo $discount_percent; ?>%</div>
+                                            <?php endif; ?>
+                                            <img src="<?php echo get_the_post_thumbnail_url($product_id, 'medium'); ?>" alt="<?php echo esc_attr(get_the_title()); ?>" width="120" height="120" />
+                                            <!-- <p class="price">
+                                                <span class="now"><?php echo wc_price($sale_price); ?></span>
+                                                <del><?php echo wc_price($regular_price); ?></del>
+                                            </p> -->
+                                            <div class="oaa">
+                                                <div class="ksrn"><?php echo convert_price($sale_price); ?></div>
+                                                <div class="ihis"><?php echo convert_price($regular_price); ?></div>
+                                            </div>
+
+                                        </a>
+                                    </div>
+                                <?php
+                                    $items[] = ob_get_clean();
+                                endwhile;
+                                wp_reset_postdata();
+
+                                // 克隆首尾
+                                $visible = 4;
+                                $cloned_start = array_slice($items, -$visible);
+                                $cloned_end = array_slice($items, 0, $visible);
+
+                                foreach ($cloned_start as $item) echo $item;
+                                foreach ($items as $item) echo $item;
+                                foreach ($cloned_end as $item) echo $item;
+                                ?>
+                            </div>
+                        </div>
+                        <button class="carousel-btn right">&#8250;</button>
                     </div>
+
+                    <script>
+                        const track = document.getElementById('track');
+                        const wrapper = track.closest('.carousel-wrapper');
+                        const itemWidth = 143;
+                        const visible = 4;
+                        let index2 = visible;
+                        let autoScroll;
+                        let isMoving = false;
+
+                        function updatePosition2() {
+                        track.style.transition = 'transform 0.3s ease-in-out';
+                        track.style.transform = `translateX(-${index2 * itemWidth}px)`;
+                        }
+
+                        function shiftNext2() {
+                        if (isMoving) return;
+                        isMoving = true;
+                        index2++;
+                        updatePosition2();
+                        }
+
+                        function shiftPrev2() {
+                        if (isMoving) return;
+                        isMoving = true;
+                        index2--;
+                        updatePosition2();
+                        }
+
+                        track.addEventListener('transitionend', () => {
+                        const itemCount = track.children.length - visible * 2;
+                        if (index2 >= itemCount + visible) {
+                            track.style.transition = 'none';
+                            index2 = visible;
+                            track.style.transform = `translateX(-${index2 * itemWidth}px)`;
+                        }
+                        if (index2 < visible) {
+                            track.style.transition = 'none';
+                            index2 = itemCount + visible - 1;
+                            track.style.transform = `translateX(-${index2 * itemWidth}px)`;
+                        }
+                        isMoving = false;
+                        });
+
+                        wrapper.querySelector('.carousel-btn.right').addEventListener('click', shiftNext2);
+                        wrapper.querySelector('.carousel-btn.left').addEventListener('click', shiftPrev2);
+
+                        requestAnimationFrame(() => {
+                        track.style.transform = `translateX(-${index2 * itemWidth}px)`;
+                        });
+
+                        function startAutoScroll2() {
+                        autoScroll = setInterval(shiftNext2, 3000);
+                        }
+                        function stopAutoScroll2() {
+                        clearInterval(autoScroll);
+                        }
+
+                        wrapper.addEventListener('mouseenter', stopAutoScroll2);
+                        wrapper.addEventListener('mouseleave', startAutoScroll2);
+
+                        startAutoScroll2();
+                    </script>
+
+
+
+
+
+
+
+
+                    
+
+                    
+
+
+                    
+
+
+
+
+                        
+
                 </div>
 
                 
+
+
+                
             </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
             <!-- right -->
             <div class="m-content-register">
@@ -546,7 +875,9 @@
                                 <?php echo t([
                                     'en' => 'Hello, Welcome to Jewelry Direct',
                                     'ru' => 'Здравствуйте, добро пожаловать в Jewelry Direct',
-                                    'es' => 'Hola, bienvenido a Jewelry Direct'
+                                    'es' => 'Hola, bienvenido a Jewelry Direct',
+                                    'pt' => 'Olá, bem-vindo à Jewelry Direct',
+                                    'ar' => 'مرحباً بكم في Jewelry Direct'
                                 ]); ?>
                             </div>
                         </div>
@@ -555,15 +886,19 @@
                             <?php echo t([
                                     'en' => 'Login',
                                     'ru' => 'Авторизоваться',
-                                    'es' => 'Acceso'
+                                    'es' => 'Acceso',
+                                    'pt' => 'Conecte-se',
+                                    'ar' => 'تسجيل الدخول'
                             ]); ?>
                         </a>
                         <a href="<?php echo esc_url( wc_get_page_permalink( 'myaccount' ) ); ?>" class="flex-center" style="background-color: #555;">
                             <!-- Register -->
                             <?php echo t([
-                                    'en' => 'Login',
+                                    'en' => 'Register',
                                     'ru' => 'Зарегистрироваться',
-                                    'es' => 'Acceso'
+                                    'es' => 'Registro',
+                                    'pt' => 'Registrar',
+                                    'ar' => 'يسجل'
                             ]); ?>
 
                         </a>
@@ -576,7 +911,9 @@
                                     <?php echo t([
                                         'en' => 'New User Benefits',
                                         'ru' => 'Преимущества для новых пользователей',
-                                        'es' => 'Beneficios para nuevos usuarios'
+                                        'es' => 'Beneficios para nuevos usuarios',
+                                        'pt' => 'Registrar',
+                                        'ar' => 'يسجل'
                                     ]); ?>
                                 </div>
                             </div>
@@ -599,7 +936,9 @@
                                 <?php echo t([
                                     'en' => 'New User Deal',
                                     'ru' => 'Сделка для новых пользователей',
-                                    'es' => 'Oferta para nuevos usuarios'
+                                    'es' => 'Oferta para nuevos usuarios',
+                                    'pt' => 'Oferta para novos usuários',
+                                    'ar' => 'صفقة المستخدم الجديد'
                                 ]); ?>
                             </span>
                             <i class="fa-solid fa-angle-right"></i>
@@ -611,7 +950,9 @@
                                 <?php echo t([
                                     'en' => 'Free Shipping',
                                     'ru' => 'Бесплатная доставка',
-                                    'es' => 'Envío gratis'
+                                    'es' => 'Envío gratis',
+                                    'pt' => 'Frete grátis',
+                                    'ar' => 'ًالشحن مجانا'
                                 ]); ?>
                             </span>
                         </div>
@@ -649,7 +990,9 @@
                             <?php echo t([
                                     'en' => 'SHOP NOW',
                                     'ru' => 'КУПИТЬ СЕЙЧАС',
-                                    'es' => 'COMPRAR AHORA'
+                                    'es' => 'COMPRAR AHORA',
+                                    'pt' => 'COMPRE AGORA',
+                                    'ar' => 'تسوق الآن'
                             ]); ?>
                         </button>
                     </div>
@@ -671,7 +1014,9 @@
                                 <?php echo t([
                                     'en' => 'Worldwide Shipping',
                                     'ru' => 'Доставка по всему миру',
-                                    'es' => 'Envíos a todo el mundo'
+                                    'es' => 'Envíos a todo el mundo',
+                                    'pt' => 'Envio para todo o mundo',
+                                    'ar' => 'الشحن في جميع أنحاء العالم'
                                 ]); ?>
                             </span>
                             <span>
@@ -679,7 +1024,9 @@
                                 <?php echo t([
                                     'en' => 'Fast & Reliable Global Delivery, Duties Included',
                                     'ru' => 'Быстрая и надежная доставка по всему миру, пошлины включены',
-                                    'es' => 'Entrega global rápida y confiable, impuestos incluidos'
+                                    'es' => 'Entrega global rápida y confiable, impuestos incluidos',
+                                    'pt' => 'Entrega global rápida e confiável, taxas incluídas',
+                                    'ar' => 'تسليم سريع وموثوق به عالميًا، بما في ذلك الرسوم الجمركية'
                                 ]); ?>
                             </span>
                         </div>
@@ -692,7 +1039,9 @@
                                 <?php echo t([
                                     'en' => 'Daily Updates of Trendy Products',
                                     'ru' => 'Ежедневные обновления трендовых товаров',
-                                    'es' => 'Actualizaciones diarias de productos de moda'
+                                    'es' => 'Actualizaciones diarias de productos de moda',
+                                    'pt' => 'Atualizações diárias de produtos da moda',
+                                    'ar' => 'تحديثات يومية للمنتجات العصرية'
                                 ]); ?>
 
                             </span>
@@ -701,7 +1050,9 @@
                                 <?php echo t([
                                     'en' => 'Stay Ahead with Fresh Styles Updated Daily',
                                     'ru' => 'Оставайтесь впереди со свежими стилями, обновляемыми ежедневно',
-                                    'es' => 'Manténgase a la vanguardia con estilos nuevos actualizados diariamente'
+                                    'es' => 'Manténgase a la vanguardia con estilos nuevos actualizados diariamente',
+                                    'pt' => 'Fique à frente com novos estilos atualizados diariamente',
+                                    'ar' => 'ابق متقدمًا مع الأنماط الجديدة التي يتم تحديثها يوميًا'
                                 ]); ?>
                             </span>
                         </div>
@@ -714,7 +1065,9 @@
                                 <?php echo t([
                                     'en' => 'No MOQ, Factory Direct Supply',
                                     'ru' => 'Нет минимального заказа, прямые поставки с завода',
-                                    'es' => 'Sin MOQ, suministro directo de fábrica'
+                                    'es' => 'Sin MOQ, suministro directo de fábrica',
+                                    'pt' => 'Sem quantidade mínima, fornecimento direto da fábrica',
+                                    'ar' => 'لا يوجد حد أدنى لكمية الطلب، توريد مباشر من المصنع'
                                 ]); ?>
                             </span>
                             <span>
@@ -722,7 +1075,9 @@
                                 <?php echo t([
                                     'en' => 'Start Small, Buy Smart — No Minimums Required',
                                     'ru' => 'Начните с малого, покупайте с умом — минимальные суммы не требуются',
-                                    'es' => 'Comience pequeño, compre inteligente - No se requieren mínimos'
+                                    'es' => 'Comience pequeño, compre inteligente - No se requieren mínimos',
+                                    'pt' => 'Comece pequeno, compre com inteligência — sem valores mínimos exigidos',
+                                    'ar' => 'ابدأ صغيرًا، واشترِ بذكاء - لا حاجة إلى حد أدنى'
                                 ]); ?>
                             </span>
                         </div>
@@ -735,7 +1090,9 @@
                                 <?php echo t([
                                     'en' => 'Exclusive Customer Manager',
                                     'ru' => 'Эксклюзивный менеджер по работе с клиентами',
-                                    'es' => 'Gerente de Clientes Exclusivo'
+                                    'es' => 'Gerente de Clientes Exclusivo',
+                                    'pt' => 'Gerente de Clientes Exclusivo',
+                                    'ar' => 'مدير العملاء الحصري'
                                 ]); ?>
                             </span>
                             <span>
@@ -743,7 +1100,9 @@
                                 <?php echo t([
                                     'en' => 'Dedicated Support Anytime, Just for You',
                                     'ru' => 'Специализированная поддержка в любое время, только для вас',
-                                    'es' => 'Soporte dedicado en cualquier momento, solo para ti'
+                                    'es' => 'Soporte dedicado en cualquier momento, solo para ti',
+                                    'pt' => 'Suporte dedicado a qualquer hora, só para você',
+                                    'ar' => 'دعم مخصص في أي وقت، فقط من أجلك'
                                 ]); ?>
                             </span>
                         </div>
@@ -761,7 +1120,9 @@
                     <?php echo t([
                         'en' => 'Wholesale Trendy Discovery',
                         'ru' => 'Оптовые модные открытия',
-                        'es' => 'Descubrimiento de moda al por mayor'
+                        'es' => 'Descubrimiento de moda al por mayor',
+                        'pt' => 'Descoberta da moda no atacado',
+                        'ar' => 'اكتشاف عصري بالجملة'
                     ]); ?>
                 </h2>
                 <div></div>
@@ -824,7 +1185,9 @@
                                     <?php echo t([
                                         'en' => 'products',
                                         'ru' => 'продукты',
-                                        'es' => 'productos'
+                                        'es' => 'productos',
+                                        'pt' => 'produtos',
+                                        'ar' => 'منتجات'
                                     ]); ?>
                                 </div>
                             </div>
@@ -842,7 +1205,9 @@
                         <?php echo t([
                             'en' => 'More',
                             'ru' => 'Более',
-                            'es' => 'Más'
+                            'es' => 'Más',
+                            'pt' => 'Mais',
+                            'ar' => 'أكثر'
                         ]); ?>
                     </a></div>
                     <?php endfor; ?>
@@ -860,7 +1225,9 @@
                     <?php echo t([
                         'en' => 'Recommend For You',
                         'ru' => 'Рекомендовать для вас',
-                        'es' => 'Recomendado para ti'
+                        'es' => 'Recomendado para ti',
+                        'pt' => 'Recomendado para você',
+                        'ar' => 'أوصي به لك'
                     ]); ?>
                 </h2>
                 <div></div>
@@ -953,7 +1320,9 @@
                             <?php echo t([
                                 'en' => 'More &gt;',
                                 'ru' => 'Подробнее &gt;',
-                                'es' => 'Más &gt;'
+                                'es' => 'Más &gt;',
+                                'pt' => 'Mais &gt;',
+                                'ar' => 'المزيد &gt;'
                             ]); ?>
                         </a>
                     </div>
@@ -996,7 +1365,9 @@
                     <?php echo t([
                         'en' => 'Review',
                         'ru' => 'Обзор',
-                        'es' => 'Revisar'
+                        'es' => 'Revisar',
+                        'pt' => 'Análise',
+                        'ar' => 'مراجعة'
                     ]); ?>
                 </h2>
                 <div></div>
@@ -1016,7 +1387,9 @@
                     <?php echo t([
                         'en' => 'Recommendations of High Quality Products',
                         'ru' => 'Рекомендации по высококачественной продукции',
-                        'es' => 'Recomendaciones de productos de alta calidad'
+                        'es' => 'Recomendaciones de productos de alta calidad',
+                        'pt' => 'Recomendações de Produtos de Alta Qualidade',
+                        'ar' => 'توصيات المنتجات عالية الجودة'
                     ]); ?>
                 </h2>
                 <div></div>
@@ -1029,7 +1402,9 @@
                     <?php echo t([
                         'en' => '❤️ Just for you',
                         'ru' => '❤️ Только для тебя',
-                        'es' => '❤️Solo para ti'
+                        'es' => '❤️Solo para ti',
+                        'pt' => '❤️ Só para você',
+                        'ar' => '❤️ فقط من أجلك'
                     ]); ?>
                 </div>
                 
@@ -1040,7 +1415,9 @@
                             <?php echo t([
                                 'en' => 'All Categories',
                                 'ru' => 'Все категории',
-                                'es' => 'Todas las categorías'
+                                'es' => 'Todas las categorías',
+                                'pt' => 'Todas as categorias',
+                                'ar' => 'جميع الفئات'
                             ]); ?>
                         </div>
                         <div class="fy-5"></div>
@@ -1083,17 +1460,15 @@
             </script>
 
 
+
+
             <!-- products-grid（AJAX加载区域） -->
             <div class="foryou-goods" id="ajax-product-grid">
-                <p>
-                    <!-- Loading... -->
-                    <?php echo t([
-                        'en' => 'Loading...',
-                        'ru' => 'Загрузка...',
-                        'es' => 'Cargando...'
-                    ]); ?>
-                </p>
             </div>
+
+            
+
+
 
         </section>
         <!-- more -->
@@ -1114,7 +1489,9 @@
                         <?php echo t([
                             'en' => 'About Us',
                             'ru' => 'О нас',
-                            'es' => 'Sobre nosotros'
+                            'es' => 'Sobre nosotros',
+                            'pt' => 'Sobre nós',
+                            'ar' => 'معلومات عنا'
                         ]); ?>
                     </h2>
                 </div>
@@ -1129,7 +1506,9 @@
                             <?php echo t([
                                 'en' => 'Our values',
                                 'ru' => 'Наши ценности',
-                                'es' => 'Nuestros valores'
+                                'es' => 'Nuestros valores',
+                                'pt' => 'Nossos valores',
+                                'ar' => 'قيمنا'
                             ]); ?>
                         </h3>
                         <p></p>
@@ -1140,7 +1519,9 @@
                             <?php echo t([
                                 'en' => 'Return policy',
                                 'ru' => 'Политика возврата',
-                                'es' => 'Política de devoluciones'
+                                'es' => 'Política de devoluciones',
+                                'pt' => 'Política de devolução',
+                                'ar' => 'سياسة العائدات'
                             ]); ?>
                         </h3>
                         <p></p>
@@ -1151,7 +1532,9 @@
                             <?php echo t([
                                 'en' => 'Transportation policy',
                                 'ru' => 'Транспортная политика',
-                                'es' => 'Política de transporte'
+                                'es' => 'Política de transporte',
+                                'pt' => 'Política de transporte',
+                                'ar' => 'سياسة النقل'
                             ]); ?>
                         </h3>
                         <p></p>

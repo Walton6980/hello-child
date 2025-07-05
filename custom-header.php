@@ -15,7 +15,9 @@
   <div class="container">
     <!-- 手机端顶部标语 -->
     <div class="mobile-top-banner">
-        <span>Sign up & Get up to US$40 off for first order</span>
+        <span>
+            Sign up & Get up to US$40 off for first order
+        </span>
     </div>
     <!-- 手机端导航栏 -->
     <nav class="mobile-mhup">

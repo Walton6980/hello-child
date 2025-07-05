@@ -370,7 +370,9 @@ add_action('woocommerce_before_main_content', function () {
             esc_html(t([
                 'en' => 'Recommend',
                 'es' => 'Recomendado',
-                'ru' => 'Рекомендуемое'
+                'ru' => 'Рекомендуемое',
+                'pt' => 'Recomendar',
+                'ar' => 'يوصي'
             ])) .
         '</h4>';
     
@@ -482,13 +484,21 @@ function add_wholesale_tier_box() {
 
     $is_variable = $product instanceof WC_Product_Variable;
 
-    $base_price = $product instanceof WC_Product_Variable
-      ? min(array_map(fn($v) => floatval($v['display_price']), $product->get_available_variations()))
-      : floatval($product->get_price());
-
-
     if ($is_variable) {
         $variations = $product->get_available_variations();
+
+        if (!empty($variations)) {
+            $prices = array_map(fn($v) => floatval($v['display_price']), $variations);
+            $base_price = min($prices);
+        } else {
+            $base_price = 0;
+        }
+    } else {
+        $base_price = floatval($product->get_price());
+    }
+
+    // 输出变体价格映射到 JS（用于前端阶梯价切换）
+    if ($is_variable && !empty($variations)) {
         echo '<script>';
         echo 'const WHOLESALE_PRICE_MAP = {';
         foreach ($variations as $v) {
@@ -500,21 +510,23 @@ function add_wholesale_tier_box() {
         echo '</script>';
     }
 
-    //所有商品都默认显示阶梯价
-    $display_style = 'display:flex;';
-
-    echo '<div class="wholesale-tier-box" style="' . esc_attr($display_style) . '">';
+    // 显示阶梯价容器
+    echo '<div class="wholesale-tier-box" style="display:flex;">';
     ?>
       <div class="molly">
         <div class="tips"><?php echo esc_html(t([
             'en' => 'Price',
             'ru' => 'Цена',
             'es' => 'Precio',
+            'pt' => 'Preço',
+            'ar' => 'سعر'
         ])); ?></div>
         <div class="tips"><?php echo esc_html(t([
             'en' => 'Quantity',
             'ru' => 'Количество',
             'es' => 'Cantidad',
+            'pt' => 'Quantidade',
+            'ar' => 'كمية'
         ])); ?></div>
       </div>
       <div class="tier">
@@ -532,63 +544,40 @@ function add_wholesale_tier_box() {
     </div>
     <?php
 
-      $currency = get_current_currency_config();
-      $symbol = $currency['symbol'];
-      $rate = $currency['rate'];
+    // 货币信息注入
+    $currency = get_current_currency_config();
+    $symbol = $currency['symbol'];
+    $rate = $currency['rate'];
 
-      echo "<script>
+    echo "<script>
       const CURRENCY_SYMBOL = '" . esc_js($symbol) . "';
       const CURRENCY_RATE = " . floatval($rate) . ";
-      </script>";
-
-
-
-
+    </script>";
     ?>
-
-    
-
 
     <script>
     document.addEventListener("DOMContentLoaded", function () {
       const tierBox = document.querySelector(".wholesale-tier-box");
-
       const tier1El = document.getElementById("tier1-price");
       const tier2El = document.getElementById("tier2-price");
       const tier3El = document.getElementById("tier3-price");
-
       const label1El = document.getElementById("tier1-label");
       const label2El = document.getElementById("tier2-label");
       const label3El = document.getElementById("tier3-label");
 
-
-      const format = n => CURRENCY_SYMBOL + ' ' + (n * CURRENCY_RATE).toLocaleString("en-US", {minimumFractionDigits: 2});
-
-      
+      const format = n => CURRENCY_SYMBOL + ' ' + (n * CURRENCY_RATE).toLocaleString("en-US", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      });
 
       function updateTiers(basePrice) {
         tierBox.style.display = 'flex';
-
-        const rate = typeof CURRENCY_RATE !== 'undefined' ? CURRENCY_RATE : 1;
-        const symbol = typeof CURRENCY_SYMBOL !== 'undefined' ? CURRENCY_SYMBOL : '$';
-
-        // 使用 toLocaleString 加入千位分隔符，保留两位小数
-        const format = n => symbol + (n * rate).toLocaleString(undefined, {
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 2
-        });
-
-        // 调整这些折扣比例
         tier1El.textContent = format(basePrice * 0.9); // 10% off
         tier2El.textContent = format(basePrice * 0.8); // 20% off
         tier3El.textContent = format(basePrice * 0.7); // 30% off
       }
 
-
-
-
       function highlightTier(qty) {
-        // 移除所有高亮
         tier1El.classList.remove('active');
         tier2El.classList.remove('active');
         tier3El.classList.remove('active');
@@ -596,7 +585,6 @@ function add_wholesale_tier_box() {
         label2El.classList.remove('active');
         label3El.classList.remove('active');
 
-        // 添加对应高亮
         if (qty >= 500) {
           tier3El.classList.add('active');
           label3El.classList.add('active');
@@ -609,27 +597,23 @@ function add_wholesale_tier_box() {
         }
       }
 
-      // 所有商品初始都加载主价格阶梯价
+      // 初始化价格显示
       updateTiers(<?php echo $base_price; ?>);
-
-      // 非变体商品初始可高亮（如数量=0时无效果）
       highlightTier(0);
 
-      // 有变体时，监听点击行更新阶梯价
-      <?php if ($is_variable): ?>
+      // 监听变体点击更新价格
+      <?php if ($is_variable && !empty($variations)): ?>
       document.querySelectorAll("tr[data-vid]").forEach(row => {
         row.querySelectorAll(".qty-btn, .qty-input").forEach(btn => {
           btn.addEventListener("click", function () {
             const vid = row.dataset.vid;
             const base = WHOLESALE_PRICE_MAP[vid];
-            // if (base) updateTiers(base);
             if (base) {
               updateTiers(base);
               const input = row.querySelector(".qty-input");
               const qty = parseInt(input.value) || 0;
               highlightTier(qty);
             }
-
           });
         });
       });
@@ -641,12 +625,11 @@ function add_wholesale_tier_box() {
           highlightTier(qty);
         });
       });
-
     });
-
     </script>
     <?php
 }
+
 
 
 // 添加手机端查看更多变体
@@ -1070,7 +1053,9 @@ function render_bulk_variation_table() {
                 <?php echo t([
                     'en' => 'Image',
                     'ru' => 'Изображение',
-                    'es' => 'Imagen'
+                    'es' => 'Imagen',
+                    'pt' => 'Imagem',
+                    'ar' => 'صورة'
                 ]); ?>
               </th>
               <th>
@@ -1078,7 +1063,9 @@ function render_bulk_variation_table() {
                 <?php echo t([
                     'en' => 'Attributes',
                     'ru' => 'Атрибуты',
-                    'es' => 'Atributos'
+                    'es' => 'Atributos',
+                    'pt' => 'Atributos',
+                    'ar' => 'صفات'
                 ]); ?>
               </th>
               <th>
@@ -1086,7 +1073,9 @@ function render_bulk_variation_table() {
                 <?php echo t([
                     'en' => 'Price',
                     'ru' => 'Цена',
-                    'es' => 'Precio'
+                    'es' => 'Precio',
+                    'pt' => 'Preço',
+                    'ar' => 'سعر'
                 ]); ?>
               </th>
               <th>
@@ -1094,7 +1083,9 @@ function render_bulk_variation_table() {
                 <?php echo t([
                     'en' => 'Quantity',
                     'ru' => 'Количество',
-                    'es' => 'Cantidad'
+                    'es' => 'Cantidad',
+                    'pt' => 'Quantidade',
+                    'ar' => 'كمية'
                 ]); ?>
               </th>
             </tr>
@@ -1167,7 +1158,9 @@ function render_bulk_variation_table() {
             <?php echo t([
                 'en' => 'Add Selected to Cart',
                 'ru' => 'Добавить выбранное в корзину',
-                'es' => 'Añadir los seleccionados al carrito'
+                'es' => 'Añadir los seleccionados al carrito',
+                'pt' => 'Adicionar selecionado ao carrinho',
+                'ar' => 'أضف المحدد إلى سلة التسوق'
             ]); ?>
 
           </button>
@@ -1412,7 +1405,9 @@ function wrap_product_description_in_collapse($tabs) {
                 <?php echo esc_html(t([
                     'en' => 'More details',
                     'es' => 'Más detalles',
-                    'ru' => 'Подробнее'
+                    'ru' => 'Подробнее',
+                    'pt' => 'Mais detalhes',
+                    'ar' => 'مزيد من التفاصيل'
                 ])); ?>
             </button>
             </div>
@@ -1432,13 +1427,17 @@ add_action('wp_footer', function () {
   $label_more = t([
     'en' => 'More details',
     'es' => 'Más detalles',
-    'ru' => 'Подробнее'
+    'ru' => 'Подробнее',
+    'pt' => 'Mais detalhes',
+    'ar' => 'مزيد من التفاصيل'
   ]);
 
   $label_close = t([
     'en' => 'Close',
     'es' => 'Cerrar',
-    'ru' => 'Закрыть'
+    'ru' => 'Закрыть',
+    'pt' => 'Fechar',
+    'ar' => 'يغلق'
   ]);
   ?>
   <script>
@@ -1480,7 +1479,7 @@ function get_discounted_price_for_cart_item($cart_item) {
 function get_current_lang() {
   if (isset($_COOKIE['site_lang'])) {
       $lang = $_COOKIE['site_lang'];
-      if (in_array($lang, ['en', 'ru', 'es'])) {
+      if (in_array($lang, ['en', 'ru', 'es', 'pt', 'ar'])) {
           return $lang;
       }
   }
@@ -1505,6 +1504,8 @@ function get_translated_product_title($product) {
   $custom_titles = [
       'es' => 'product_title_es',
       'ru' => 'product_title_ru',
+      'pt' => 'product_title_pt',
+      'ar' => 'product_title_ar'
   ];
 
   if (isset($custom_titles[$lang])) {
@@ -1527,6 +1528,8 @@ function get_translated_category_name($term) {
   $custom_fields = [
       'es' => 'title_es',
       'ru' => 'title_ru',
+      'pt' => 'title_pt',
+      'ar' => 'title_ar'
   ];
 
   // 获取对应语言的自定义字段值
@@ -1571,6 +1574,8 @@ function get_current_currency_config() {
       'EUR' => ['symbol' => '€',  'rate' => 0.92],
       'RUB' => ['symbol' => '₽',  'rate' => 90],
       'CNY' => ['symbol' => '¥',  'rate' => 7.1],
+      'BRL' => ['symbol' => 'R$',  'rate' => 5.42],
+
   ];
 
   return $currency_map[$code] ?? $currency_map['USD'];
@@ -1692,10 +1697,12 @@ function get_translated_product_description($product) {
   $default_description = $product->get_description();
 
   $custom_descriptions = [
-      // 'zh' => 'product_desc_zh',
+
       'es' => 'product_desc_es',
       'ru' => 'product_desc_ru',
-      // 'id' => 'product_desc_id',
+      'pt' => 'product_desc_pt',
+      'ar' => 'product_desc_ar'
+
   ];
 
   if (isset($custom_descriptions[$lang])) {
@@ -1741,6 +1748,8 @@ function custom_translate_category_title($title) {
         $field_map = [
             'es' => 'title_es',
             'ru' => 'title_ru',
+            'pt' => 'title_pt',
+            'ar' => 'title_ar'
         ];
 
         if (isset($field_map[$lang])) {
@@ -1764,6 +1773,8 @@ function custom_translate_breadcrumb_all($crumbs) {
     $field_map = [
         'es' => 'title_es',
         'ru' => 'title_ru',
+        'pt' => 'title_pt',
+        'ar' => 'title_ar'
     ];
 
     // 替换每一项
@@ -1808,7 +1819,8 @@ function apply_user_language_from_cookie() {
             'en' => 'en_US',
             'ru' => 'ru_RU',
             'es' => 'es_ES',
-            'zh' => 'zh_CN',
+            'pt' => 'pt_PT',
+            'ar' => 'ar_AR'
         ];
         $short = $_COOKIE['site_lang'];
         if (isset($map[$short])) {
@@ -1824,6 +1836,28 @@ function apply_user_language_from_cookie() {
 
 
 
+add_action('wp_ajax_load_flash_deals', 'ajax_load_flash_deals');
+add_action('wp_ajax_nopriv_load_flash_deals', 'ajax_load_flash_deals');
+
+function ajax_load_flash_deals() {
+    $args = [
+        'post_type' => 'product',
+        'posts_per_page' => 8,
+        'meta_query' => [[
+            'key' => '_sale_price',
+            'compare' => 'EXISTS',
+        ]]
+    ];
+    $loop = new WP_Query($args);
+    ob_start();
+    while ($loop->have_posts()) : $loop->the_post();
+        global $product;
+        include get_template_directory() . '/template-parts/product-card.php'; // 或你用的卡片模板
+    endwhile;
+    wp_reset_postdata();
+    echo ob_get_clean();
+    wp_die();
+}
 
 
 

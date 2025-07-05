@@ -7,8 +7,6 @@
 </head>
 <body <?php body_class(); ?>>
 
-
-
     <header class="main-header">
         <div class="container">
             <div class="mh-up">
@@ -26,7 +24,9 @@
                         placeholder="<?php echo t([
                             'en' => 'Search goods...',
                             'ru' => 'Поиск товаров...',
-                            'es' => 'Buscar productos...'
+                            'es' => 'Buscar productos...',
+                            'pt' => 'Pesquisar produtos...',
+                            'ar' => 'البحث عن البضائع...'
                         ]); ?>">
                         <button type="submit"><i class="fas fa-search"></i></button>
                     </form>
@@ -49,7 +49,9 @@
                                         <?php echo t([
                                             'en' => 'Your Website Settings',
                                             'ru' => 'Настройки веб-сайта',
-                                            'es' => 'Configuración del sitio web'
+                                            'es' => 'Configuración del sitio web',
+                                            'pt' => 'Configurações do seu site',
+                                            'ar' => 'إعدادات موقع الويب الخاص بك'
                                         ]); ?>
                                     </span>
 
@@ -58,14 +60,18 @@
                                     <span>
                                         <?php echo t([
                                             'en' => 'Language:',
-                                            'ru' => 'Язык',
-                                            'es' => 'Idioma'
+                                            'ru' => 'Язык:',
+                                            'es' => 'Idioma:',
+                                            'pt' => 'Linguagem:',
+                                            'ar' => 'لغة:'
                                         ]); ?>
                                     </span>
                                     <select class="iiiiii" id="lang-select" onchange="setLang(this.value)">
                                         <option value="en" <?= get_current_lang() === 'en' ? 'selected' : '' ?>>English</option>
                                         <option value="ru" <?= get_current_lang() === 'ru' ? 'selected' : '' ?>>Русский</option>
                                         <option value="es" <?= get_current_lang() === 'es' ? 'selected' : '' ?>>Español</option>
+                                        <option value="pt" <?= get_current_lang() === 'pt' ? 'selected' : '' ?>>Português</option>
+                                        <option value="ar" <?= get_current_lang() === 'ar' ? 'selected' : '' ?>>اللغة العربية</option>
                                     </select>
                                 </div>
 
@@ -74,8 +80,11 @@
                                     <span>
                                         <?php echo t([
                                             'en' => 'Currency:',
-                                            'ru' => 'Валюта',
-                                            'es' => 'Moneda'
+                                            'ru' => 'Валюта:',
+                                            'es' => 'Moneda:',
+                                            'pt' => 'Moeda:',
+                                            'ar' => 'عملة:'
+
                                         ]); ?>
                                     </span>
                                     <select class="iiiiii" id="currency-select" onchange="setCurrency(this.value)">
@@ -84,6 +93,7 @@
                                         <option value="EUR" <?= get_current_currency_code() === 'EUR' ? 'selected' : '' ?>>EUR (€)</option>
                                         <option value="RUB" <?= get_current_currency_code() === 'RUB' ? 'selected' : '' ?>>RUB (₽)</option>
                                         <option value="CNY" <?= get_current_currency_code() === 'CNY' ? 'selected' : '' ?>>CNY (¥)</option>
+                                        <option value="BRL" <?= get_current_currency_code() === 'BRL' ? 'selected' : '' ?>>BRL (R$)</option>
                                     </select>
                                 </div>
 
@@ -114,7 +124,9 @@
                                     <?php echo t([
                                         'en' => 'Account',
                                         'ru' => 'Счет',
-                                        'es' => 'Cuenta'
+                                        'es' => 'Cuenta',
+                                        'pt' => 'Conta',
+                                        'ar' => 'حساب'
                                     ]); ?>
                                 </span>
 
@@ -130,7 +142,9 @@
                                     <?php echo t([
                                         'en' => 'Hello',
                                         'ru' => 'привет',
-                                        'es' => 'Hola'
+                                        'es' => 'Hola',
+                                        'pt' => 'Olá',
+                                        'ar' => 'مرحبًا'
                                     ]); ?>
                                 </span>,
                                 
@@ -144,7 +158,9 @@
                                         <?php echo t([
                                             'en' => 'Log out',
                                             'ru' => 'Выйти',
-                                            'es' => 'Finalizar la sesión'
+                                            'es' => 'Finalizar la sesión',
+                                            'pt' => 'Sair',
+                                            'ar' => 'تسجيل الخروج'
                                         ]); ?>
                                     </span>
                                 </a>
@@ -155,7 +171,9 @@
                                         <?php echo t([
                                             'en' => 'You are not logged in',
                                             'ru' => 'Вы не вошли в систему',
-                                            'es' => 'No has iniciado sesión'
+                                            'es' => 'No has iniciado sesión',
+                                            'pt' => 'Você não está logado',
+                                            'ar' => 'أنت غير مسجل الدخول'
                                         ]); ?>
                                     </span>
                                 </p>
@@ -165,7 +183,9 @@
                                         <?php echo t([
                                             'en' => 'Log in',
                                             'ru' => 'Авторизоваться',
-                                            'es' => 'Acceso'
+                                            'es' => 'Acceso',
+                                            'pt' => 'Conecte-se',
+                                            'ar' => 'تسجيل الدخول'
                                         ]); ?>
                                     </span>
 
@@ -176,7 +196,9 @@
                                         <?php echo t([
                                             'en' => 'Register',
                                             'ru' => 'Зарегистрироваться',
-                                            'es' => 'Registro'
+                                            'es' => 'Registro',
+                                            'pt' => 'Registrar',
+                                            'ar' => 'يسجل'
                                         ]); ?>
                                     </span>
                                 </a>
@@ -192,7 +214,9 @@
                                     <?php echo t([
                                         'en' => 'Cart',
                                         'ru' => 'Корзина',
-                                        'es' => 'Carro'
+                                        'es' => 'Carro',
+                                        'pt' => 'Carrinho',
+                                        'ar' => 'عربة التسوق'
                                     ]); ?>
                                 </span>
                             </a>
@@ -204,7 +228,9 @@
                                     <?php echo t([
                                         'en' => 'Your cart is empty.',
                                         'ru' => 'Ваша корзина пуста.',
-                                        'es' => 'Su carrito está vacío.'
+                                        'es' => 'Su carrito está vacío.',
+                                        'pt' => 'Seu carrinho está vazio.',
+                                        'ar' => 'عربة التسوق الخاصة بك فارغة.'
                                     ]); ?>
                                 </p>
                                 
@@ -261,7 +287,9 @@
                                             <?php echo t([
                                                 'en' => 'Total:',
                                                 'ru' => 'Общий:',
-                                                'es' => 'Total:'
+                                                'es' => 'Total:',
+                                                'pt' => 'Total:',
+                                                'ar' => 'المجموع:'
                                             ]); ?>
                                         </p>
                                         
@@ -277,7 +305,9 @@
                                         <?php echo t([
                                             'en' => 'Checkout',
                                             'ru' => 'Проверить',
-                                            'es' => 'Verificar'
+                                            'es' => 'Verificar',
+                                            'pt' => 'Confira',
+                                            'ar' => 'الدفع'
                                         ]); ?>
                                     </a>
                                 </div>
@@ -293,7 +323,9 @@
                                     <?php echo t([
                                             'en' => 'Wishlist',
                                             'ru' => 'Список пожеланий',
-                                            'es' => 'Lista de deseos'
+                                            'es' => 'Lista de deseos',
+                                            'pt' => 'Lista de desejos',
+                                            'ar' => 'قائمة الرغبات'
                                     ]); ?>
                                 </span>
                             </a>
@@ -312,7 +344,9 @@
                         <?php echo esc_html(t([
                             'en' => 'Sign up & Get up to US$40 off for first order',
                             'es' => 'Regístrate y obtén hasta US$40 de descuento en tu primer pedido',
-                            'ru' => 'Зарегистрируйтесь и получите скидку до 40 долларов США на первый заказ'
+                            'ru' => 'Зарегистрируйтесь и получите скидку до 40 долларов США на первый заказ',
+                            'pt' => 'Cadastre-se e ganhe até US$ 40 de desconto no primeiro pedido',
+                            'ar' => 'سجل واحصل على خصم يصل إلى 40 دولارًا أمريكيًا على الطلب الأول'
                         ])); ?>
                     </span>
 
@@ -367,7 +401,9 @@
                                     <?php echo t([
                                         'en' => 'Your Website Settings',
                                         'ru' => 'Настройки веб-сайта',
-                                        'es' => 'Configuración del sitio web'
+                                        'es' => 'Configuración del sitio web',
+                                        'pt' => 'Configurações do seu site',
+                                        'ar' => 'إعدادات موقع الويب الخاص بك'
                                     ]); ?>
                                 </span>
 
@@ -378,14 +414,18 @@
                                 <span>
                                     <?php echo t([
                                         'en' => 'Language:',
-                                        'ru' => 'Язык',
-                                        'es' => 'Idioma'
+                                        'ru' => 'Язык:',
+                                        'es' => 'Idioma:',
+                                        'pt' => 'Linguagem:',
+                                        'ar' => 'لغة:'
                                     ]); ?>
                                 </span>
                                 <select class="iiiiii" id="lang-select" onchange="setLang(this.value)">
                                     <option value="en" <?= get_current_lang() === 'en' ? 'selected' : '' ?>>English</option>
                                     <option value="ru" <?= get_current_lang() === 'ru' ? 'selected' : '' ?>>Русский</option>
                                     <option value="es" <?= get_current_lang() === 'es' ? 'selected' : '' ?>>Español</option>
+                                    <option value="pt" <?= get_current_lang() === 'pt' ? 'selected' : '' ?>>Português</option>
+                                    <option value="ar" <?= get_current_lang() === 'ar' ? 'selected' : '' ?>>اللغة العربية</option>
                                 </select>
                             </div>                         
 
@@ -393,8 +433,10 @@
                                 <span>
                                     <?php echo t([
                                         'en' => 'Currency:',
-                                        'ru' => 'Валюта',
-                                        'es' => 'Moneda'
+                                        'ru' => 'Валюта:',
+                                        'es' => 'Moneda:',
+                                        'pt' => 'Moeda:',
+                                        'ar' => 'عملة:'
                                     ]); ?>
                                 </span>
                                 <select class="iiiiii" id="currency-select" onchange="setCurrency(this.value)">
@@ -403,6 +445,7 @@
                                     <option value="EUR" <?= get_current_currency_code() === 'EUR' ? 'selected' : '' ?>>EUR (€)</option>
                                     <option value="RUB" <?= get_current_currency_code() === 'RUB' ? 'selected' : '' ?>>RUB (₽)</option>
                                     <option value="CNY" <?= get_current_currency_code() === 'CNY' ? 'selected' : '' ?>>CNY (¥)</option>
+                                    <option value="BRL" <?= get_current_currency_code() === 'BRL' ? 'selected' : '' ?>>BRL (R$)</option>
                                 </select>
                             </div>
 
@@ -522,7 +565,9 @@
                                             <?php echo esc_html(t([
                                                 'en' => 'Account',
                                                 'es' => 'Cuenta',
-                                                'ru' => 'Счет'
+                                                'ru' => 'Счет',
+                                                'pt' => 'Conta',
+                                                'ar' => 'حساب'
                                             ])); ?>
                                         </span>
                                     </a>
@@ -535,7 +580,9 @@
                                             <?php echo esc_html(t([
                                                 'en' => 'Cart',
                                                 'es' => 'Carro',
-                                                'ru' => 'Корзина'
+                                                'ru' => 'Корзина',
+                                                'pt' => 'Carrinho',
+                                                'ar' => 'عربة التسوق'
                                             ])); ?>
                                         </span>
                                     </a>
@@ -548,7 +595,9 @@
                                             <?php echo esc_html(t([
                                                 'en' => 'Wishlist',
                                                 'es' => 'Lista de deseos',
-                                                'ru' => 'Список пожеланий'
+                                                'ru' => 'Список пожеланий',
+                                                'pt' => 'Lista de desejos',
+                                                'ar' => 'قائمة الرغبات'
                                             ])); ?>
                                         </span>
                                     </a>
@@ -564,7 +613,9 @@
                             <?php echo esc_html(t([
                                 'en' => 'Sign up & Get up to US$40 off for first order',
                                 'es' => 'Regístrate y obtén hasta US$40 de descuento en tu primer pedido',
-                                'ru' => 'Зарегистрируйтесь и получите скидку до 40 долларов США на первый заказ'
+                                'ru' => 'Зарегистрируйтесь и получите скидку до 40 долларов США на первый заказ',
+                                'pt' => 'Cadastre-se e ganhe até US$ 40 de desconto no primeiro pedido',
+                                'ar' => 'سجل واحصل على خصم يصل إلى 40 دولارًا أمريكيًا على الطلب الأول'
                             ])); ?>
                         </span>
 
@@ -659,7 +710,9 @@
                                 <?php echo t([
                                     'en' => 'All Categories',
                                     'ru' => 'Все категории',
-                                    'es' => 'Todas las categorías'
+                                    'es' => 'Todas las categorías',
+                                    'pt' => 'Todas as categorias',
+                                    'ar' => 'جميع الفئات'
                                 ]); ?>
                             </a>
                         </div>
@@ -732,7 +785,9 @@
                     <?php echo esc_html(t([
                         'en' => ' Already added to cart',
                         'es' => ' Ya agregado al carrito',
-                        'ru' => ' Уже добавлено в корзину'
+                        'ru' => ' Уже добавлено в корзину',
+                        'pt' => ' Já adicionado ao carrinho',
+                        'ar' => 'تمت إضافته بالفعل إلى سلة التسوق'
                     ])); ?>
 
                 </div>
@@ -742,7 +797,9 @@
                     <?php echo esc_html(t([
                         'en' => '❤️ Added to wishlist',
                         'es' => '❤️ Añadido a la lista de deseos',
-                        'ru' => '❤️ Добавлено в список желаний'
+                        'ru' => '❤️ Добавлено в список желаний',
+                        'pt' => '❤️ Adicionado à lista de desejos',
+                        'ar' => '❤️ تمت الإضافة إلى قائمة الرغبات'
                     ])); ?>
                 </div>
 
@@ -780,7 +837,9 @@
                             <?php echo esc_html(t([
                                 'en' => 'Sign up & Get up to US$40 off for first order',
                                 'es' => 'Regístrate y obtén hasta US$40 de descuento en tu primer pedido',
-                                'ru' => 'Зарегистрируйтесь и получите скидку до 40 долларов США на первый заказ'
+                                'ru' => 'Зарегистрируйтесь и получите скидку до 40 долларов США на первый заказ',
+                                'pt' => 'Cadastre-se e ganhe até US$ 40 de desconto no primeiro pedido',
+                                'ar' => 'سجل واحصل على خصم يصل إلى 40 دولارًا أمريكيًا على الطلب الأول'
                             ])); ?>
                         </span>
                     </div>
@@ -867,7 +926,9 @@
                         <?php echo t([
                             'en' => 'All Categories',
                             'ru' => 'Все категории',
-                            'es' => 'Todas las categorías'
+                            'es' => 'Todas las categorías',
+                            'pt' => 'Todas as categorias',
+                            'ar' => 'جميع الفئات'
                         ]); ?>
                     </a>
                 </div>
